@@ -1,4 +1,4 @@
-RailsBootstrap::Application.routes.draw do
+SocialFridgeApi::Application.routes.draw do
   root to: 'application#index'
 
   require 'sidekiq/web'

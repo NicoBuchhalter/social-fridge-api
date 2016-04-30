@@ -435,6 +435,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-commands-rspec
+  sprockets
   therubyracer
   timecop
   turbolinks
@@ -443,5 +444,8 @@ DEPENDENCIES
   web-console
   webmock
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.12.1

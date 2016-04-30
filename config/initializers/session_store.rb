@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-RailsBootstrap::Application.config.session_store :cookie_store, key: '_rails-bootstrap_session'
+SocialFridgeApi::Application.config.session_store :cookie_store, key: '_social-fridge-api_session'
