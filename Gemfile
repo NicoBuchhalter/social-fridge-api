@@ -54,6 +54,9 @@ gem 'active_model_serializers'
 
 gem 'foreman'
 
+# Geolocalization
+gem 'geokit-rails'
+
 # Active Admin
 gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources'

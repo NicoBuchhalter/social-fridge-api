@@ -142,6 +142,10 @@ GEM
       activesupport
       capybara
       i18n
+    geokit (1.10.0)
+    geokit-rails (2.1.0)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-webfonts-rails (0.0.4)
@@ -400,6 +404,7 @@ DEPENDENCIES
   foreman
   formtastic
   formulaic
+  geokit-rails
   google-webfonts-rails
   inherited_resources
   jquery-rails
@@ -435,7 +440,6 @@ DEPENDENCIES
   slim-rails
   spring
   spring-commands-rspec
-  sprockets
   therubyracer
   timecop
   turbolinks
