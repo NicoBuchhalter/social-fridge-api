@@ -1,4 +1,5 @@
 class Fridge < ActiveRecord::Base
-  has_one :location, as: :locatable
-  acts_as_mappable through: :location
+  acts_as_mappable default_units: :kms
+
+  validates :lat, :lng, presence: true
 end

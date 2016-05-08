@@ -57,6 +57,9 @@ gem 'foreman'
 # Geolocalization
 gem 'geokit-rails'
 
+# API Authentication
+gem 'jwt'
+
 # Active Admin
 gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources'
@@ -87,6 +90,12 @@ gem 'metamagic'
 gem 'meta-tags'
 
 gem 'newrelic_rpm'
+
+# API Version
+gem 'versionist'
+
+# Serialization
+gem 'kaminari'
 
 group :development do
   # Gem to detect N+1 queries

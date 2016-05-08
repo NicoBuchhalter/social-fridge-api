@@ -17,19 +17,10 @@ ActiveRecord::Schema.define(version: 20160508205107) do
   enable_extension "plpgsql"
 
   create_table "fridges", force: :cascade do |t|
+    t.float    "lat",        null: false
+    t.float    "lng",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "locations", force: :cascade do |t|
-    t.integer  "locatable_id",   null: false
-    t.string   "locatable_type", null: false
-    t.float    "lat",            null: false
-    t.float    "lng",            null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "locations", ["locatable_type", "locatable_id"], name: "index_locations_on_locatable_type_and_locatable_id", using: :btree
 
 end
