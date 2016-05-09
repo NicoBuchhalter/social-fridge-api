@@ -18,7 +18,7 @@ gem 'unicorn'
 gem 'font-awesome-rails'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 
 # Use autoprefixer to avoid writing css prefixes
 gem 'autoprefixer-rails'
@@ -135,7 +135,7 @@ group :development, :test do
 
   # Lints
   gem 'rubocop'
-  gem 'scss_lint'
+  gem 'scss_lint', require: false
 end
 
 group :test do
