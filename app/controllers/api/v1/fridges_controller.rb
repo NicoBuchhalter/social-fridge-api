@@ -9,7 +9,7 @@ module Api
       def create
         fridge = Fridge.create(create_params)
         unless fridge.valid?
-          return render json: { error: "Couldn't create fridge" }, status: :bad_request
+          return render json: { errors: fridge.errors.full_messages }, status: :bad_request
         end
         render json: { access_token: fridge.generate_access_token }, status: :created
       end
@@ -17,10 +17,10 @@ module Api
       private
 
       def create_params
-        [:email, :password, :password_confirmation, :lat, :lng].each do |param|
+        [:email, :password, :password_confirmation, :address].each do |param|
           params.require(param)
         end
-        params.permit(:email, :password, :password_confirmation, :lat, :lng)
+        params.permit(:email, :password, :password_confirmation, :address)
       end
     end
   end
