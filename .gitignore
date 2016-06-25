@@ -31,3 +31,5 @@ coverage/*
 public/uploads
 
 dump.rdb
+
+.byebug_history

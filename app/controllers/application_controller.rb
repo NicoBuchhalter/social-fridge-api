@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :null_session
 
-  # before_action :current_user, :authenticate_user, :set_locale, except: :health
+  before_action :current_user, :authenticate_request, :set_locale, except: :health
 
   rescue_from 'NotAuthenticatedError' do
     render json: { error: 'Not Authorized' }, status: :unauthorized
@@ -49,8 +49,8 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    # return nil unless decoded_auth_token.present?
-    # @current_user ||= User.find_by_id(decoded_auth_token[:user_id])
+    return nil unless decoded_auth_token.present?
+    @current_user ||= User.find_by_id(decoded_auth_token[:user_id])
   end
 
   def authenticate_request

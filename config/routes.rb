@@ -23,6 +23,13 @@ SocialFridgeApi::Application.routes.draw do
 # API Endpoints
   api_version(module:  'api/v1', path: { value: 'api/v1' }, defaults: { format: :json }) do
 
-    resources :fridges, only: :index
+    resources :fridges, only: [:index, :create]
+    resources :volunteers, only: [:index, :create]
+    resources :donators, only: [:index, :create]
+    resources :o_auth, contoller: :o_auth, only: [] do 
+      collection do
+        post :token
+      end
+    end
   end
 end
