@@ -1,4 +1,3 @@
-
 module Api
   module V1
     class VolunteersController < ApplicationController
@@ -15,9 +14,7 @@ module Api
       private
 
       def create_params
-        [:email, :password, :password_confirmation].each do |param|
-          params.require(param)
-        end
+        [:email, :password, :password_confirmation].each { |param| params.require(param) }
         params.permit(:email, :password, :password_confirmation)
       end
     end

@@ -4,11 +4,11 @@ module Api
       skip_before_action :current_user, :authenticate_request
 
       def token
-        if !valid_user?
-          render json: { error: 'Invalid email or password' }, status: :unauthorized
-        else
+        if valid_user?
           access_token = user.generate_access_token
           render json: { access_token: access_token }, status: :ok
+        else
+          render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
       end
 

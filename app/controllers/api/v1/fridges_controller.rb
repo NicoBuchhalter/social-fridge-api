@@ -2,6 +2,7 @@ module Api
   module V1
     class FridgesController < ApplicationController
       skip_before_action :current_user, :authenticate_request, only: :create
+
       def index
         render json: Fridge.by_distance(origin: current_location).page(params[:page])
       end
@@ -17,9 +18,7 @@ module Api
       private
 
       def create_params
-        [:email, :password, :password_confirmation, :address].each do |param|
-          params.require(param)
-        end
+        [:email, :password, :password_confirmation, :address].each { |p| params.require(p) }
         params.permit(:email, :password, :password_confirmation, :address)
       end
     end

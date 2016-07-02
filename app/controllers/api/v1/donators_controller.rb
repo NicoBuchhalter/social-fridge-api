@@ -14,9 +14,7 @@ module Api
       private
 
       def create_params
-        [:email, :password, :password_confirmation, :address].each do |param|
-          params.require(param)
-        end
+        [:email, :password, :password_confirmation, :address].each { |p| params.require(p) }
         params.permit(:email, :password, :password_confirmation, :address)
       end
     end

@@ -8,6 +8,7 @@ require 'pundit/rspec'
 include ActionDispatch::TestProcess
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/shared_examples/**/*.rb')].each { |f| require f }
 
 # VCR Configuration
 # require 'vcr'

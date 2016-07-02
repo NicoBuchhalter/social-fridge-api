@@ -1,3 +1,3 @@
-class Fridge < User
+class Donator < User
   include Locatable
 end

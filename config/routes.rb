@@ -26,7 +26,7 @@ SocialFridgeApi::Application.routes.draw do
     resources :fridges, only: [:index, :create]
     resources :volunteers, only: [:index, :create]
     resources :donators, only: [:index, :create]
-    resources :o_auth, contoller: :o_auth, only: [] do
+    resources :o_auth, only: [] do
       collection do
         post :token
       end

@@ -1,3 +1,3 @@
 class FridgeSerializer < ActiveModel::Serializer
-  attributes :id, :lat, :lng
+  attributes :lat, :lng, :address, :email
 end
