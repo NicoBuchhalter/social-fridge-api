@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625214724) do
+ActiveRecord::Schema.define(version: 20160708194314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,21 @@ ActiveRecord::Schema.define(version: 20160625214724) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "donations", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.datetime "pickup_time_from"
+    t.datetime "pickup_time_to"
+    t.string   "description"
+    t.integer  "donator_id",       null: false
+    t.integer  "volunteer_id"
+    t.integer  "fridge_id"
+  end
+
+  add_index "donations", ["donator_id"], name: "index_donations_on_donator_id", using: :btree
+  add_index "donations", ["fridge_id"], name: "index_donations_on_fridge_id", using: :btree
+  add_index "donations", ["volunteer_id"], name: "index_donations_on_volunteer_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -72,4 +87,7 @@ ActiveRecord::Schema.define(version: 20160625214724) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "donations", "users", column: "donator_id"
+  add_foreign_key "donations", "users", column: "fridge_id"
+  add_foreign_key "donations", "users", column: "volunteer_id"
 end

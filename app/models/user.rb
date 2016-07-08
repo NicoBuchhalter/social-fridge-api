@@ -6,4 +6,16 @@ class User < ActiveRecord::Base
     payload = { user_id: id }
     TokenManager::AuthToken.encode(payload)
   end
+
+  def donator?
+    false
+  end
+
+  def fridge?
+    false
+  end
+
+  def volunteer?
+    false
+  end
 end
