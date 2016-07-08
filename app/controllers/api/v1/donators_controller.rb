@@ -11,6 +11,11 @@ module Api
         render json: { access_token: donator.generate_access_token }, status: :created
       end
 
+      def index
+        donators = Donator.open.by_distance(origin: current_location).page(params[:page])
+        render json: donators, status: :ok
+      end
+
       private
 
       def create_params
