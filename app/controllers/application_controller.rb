@@ -78,4 +78,8 @@ class ApplicationController < ActionController::Base
   def render_nothing_bad_req
     render nothing: true, status: :bad_request
   end
+
+  def render_errors(errors)
+    render json: { errors: errors }, status: :bad_request
+  end
 end

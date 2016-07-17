@@ -5,9 +5,7 @@ module Api
 
       def create
         donator = Donator.create(create_params)
-        unless donator.valid?
-          return render json: { errors: donator.errors.full_messages }, status: :bad_request
-        end
+        return render_errors(donator.errors.full_messages) unless donator.valid?
         render json: { access_token: donator.generate_access_token }, status: :created
       end
 

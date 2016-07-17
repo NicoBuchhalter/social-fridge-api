@@ -28,7 +28,8 @@ SocialFridgeApi::Application.routes.draw do
     resources :donators, only: [:index, :create]
     resources :donations, only: [:create] do
       member do
-        post :confirm
+        post :activate
+        post :finish
       end
     end
     resources :o_auth, only: [] do

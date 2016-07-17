@@ -9,9 +9,7 @@ module Api
 
       def create
         fridge = Fridge.create(create_params)
-        unless fridge.valid?
-          return render json: { errors: fridge.errors.full_messages }, status: :bad_request
-        end
+        return render_errors(fridge.errors.full_messages) unless fridge.valid?
         render json: { access_token: fridge.generate_access_token }, status: :created
       end
 

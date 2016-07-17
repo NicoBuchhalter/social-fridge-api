@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Api::V1::FridgesController do
   describe 'GET #index' do
-    include_context 'Authentication Context'
+    include_context 'Authentication Volunteer Context'
 
     let(:fridges_count) { 5 }
     let!(:fridges) { create_list(:fridge, fridges_count) }
@@ -16,7 +16,7 @@ describe Api::V1::FridgesController do
       end
 
       it 'returns success status' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :ok
       end
 
       it 'returns all its fridges' do
@@ -40,7 +40,7 @@ describe Api::V1::FridgesController do
       end
 
       it 'returns created status' do
-        expect(response.status).to eq 201
+        expect(response).to have_http_status :created
       end
     end
 
@@ -48,7 +48,7 @@ describe Api::V1::FridgesController do
       before(:each) { post :create }
 
       it 'returns bad request status' do
-        expect(response.status).to eq 400
+        expect(response).to have_http_status :bad_request
       end
 
       it 'returns no body' do
@@ -63,7 +63,7 @@ describe Api::V1::FridgesController do
       before(:each) { post :create, fridge_attributes }
 
       it 'returns bad request status' do
-        expect(response.status).to eq 400
+        expect(response).to have_http_status :bad_request
       end
 
       it 'returns a response with an error message' do

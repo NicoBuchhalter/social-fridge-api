@@ -5,9 +5,7 @@ module Api
 
       def create
         volunteer = Volunteer.create(create_params)
-        unless volunteer.valid?
-          return render json: { errors: volunteer.errors.full_messages }, status: :bad_request
-        end
+        return render_errors(volunteer.errors.full_messages) unless volunteer.valid?
         render json: { access_token: volunteer.generate_access_token }, status: :created
       end
 
