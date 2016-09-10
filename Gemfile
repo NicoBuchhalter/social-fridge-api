@@ -54,6 +54,9 @@ gem 'active_model_serializers'
 
 gem 'foreman'
 
+# Omniauth
+gem 'omniauth-facebook'
+
 # Geolocalization
 gem 'geokit-rails'
 
@@ -96,6 +99,12 @@ gem 'versionist'
 
 # Serialization
 gem 'kaminari'
+
+# HTTP client
+gem 'httparty'
+
+# Facebook Auth
+gem 'koala'
 
 group :development do
   # Gem to detect N+1 queries
@@ -154,6 +163,9 @@ group :test do
   # CodeClimate Reporter
   gem 'codeclimate-test-reporter', require: nil
   gem 'simplecov', require: false
+
+  # Mocking external requests
+  gem 'vcr'
 end
 
 group :production do

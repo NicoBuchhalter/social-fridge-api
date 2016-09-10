@@ -1,19 +1,21 @@
 module Api
   module V1
     class VolunteersController < ApplicationController
-      skip_before_action :current_user, :authenticate_request, only: :create
+      skip_before_action :authenticate_request, only: :fb_connect
 
-      def create
-        volunteer = Volunteer.create(create_params)
-        return render_errors(volunteer.errors.full_messages) unless volunteer.valid?
-        render json: { access_token: volunteer.generate_access_token }, status: :created
+      def fb_connect
+        context = Omniauth::Facebook::ConnectContext.new(current_user)
+        context.handle(fb_params[:access_token])
+        status = context.status
+        return head status unless [:created, :ok].include? status
+        render status: status, json: context.volunteer
       end
 
       private
 
-      def create_params
-        [:email, :password, :password_confirmation].each { |param| params.require(param) }
-        params.permit(:email, :password, :password_confirmation)
+      def fb_params
+        params.require(:access_token)
+        params.permit(:access_token)
       end
     end
   end

@@ -15,7 +15,6 @@ Dir[Rails.root.join('spec/shared_examples/**/*.rb')].each { |f| require f }
 # require 'webmock/rspec'
 
 # VCR.configure do |c|
-#   c.ignore_hosts 'codeclimate.com'
 #   c.cassette_library_dir = 'spec/cassettes'
 #   c.hook_into :webmock
 #   c.configure_rspec_metadata!

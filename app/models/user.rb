@@ -18,4 +18,10 @@ class User < ActiveRecord::Base
   def volunteer?
     false
   end
+
+  private
+
+  def password_required?
+    super && !fb_id.present?
+  end
 end

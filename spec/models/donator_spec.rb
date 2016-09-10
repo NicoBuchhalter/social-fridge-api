@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Donator do
+describe Donator, :vcr do
   it_behaves_like 'locatable'
 
   describe '#open' do
