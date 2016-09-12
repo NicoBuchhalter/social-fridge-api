@@ -12,7 +12,7 @@ Documentation:
   Enabled: false
 
 LineLength:
-  Max: 99
+  Max: 100
 
 HasAndBelongsToMany:
   Enabled: false

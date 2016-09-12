@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   class NotAuthenticatedError < StandardError; end
   class AuthenticationTimeoutError < StandardError; end
 
+  DEFAULT_RADIUS = 1
+
   protect_from_forgery with: :null_session
 
   before_action :current_user, :authenticate_request, :set_locale, except: :health

@@ -10,7 +10,7 @@ module Api
       end
 
       def index
-        donators = Donator.open.by_distance(origin: current_location).page(params[:page])
+        donators = Donator.open.within(params[:radius] || DEFAULT_RADIUS, origin: current_location)
         render json: donators, status: :ok
       end
 

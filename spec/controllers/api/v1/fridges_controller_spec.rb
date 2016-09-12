@@ -6,27 +6,26 @@ describe Api::V1::FridgesController do
 
     let(:fridges_count) { 5 }
     let!(:fridges) { create_list(:fridge, fridges_count) }
+    let!(:far_away_fridge) { create(:fridge, address: 'Lavalleja 153, CABA') }
+    let!(:nearby_fridge) { create(:fridge, address: 'Güemes 4675, CABA') }
 
     context 'when requesting for fridges' do
       let(:lat) { '-34.5808860' }
       let(:lng) { '-58.4241330' }
+      let(:radius) { 1 }
 
       before(:each) do
-        get :index, lat: lat, lng: lng
+        get :index, lat: lat, lng: lng, radius: radius
       end
 
       it 'returns success status' do
         expect(response).to have_http_status :ok
       end
 
-      it 'returns all its fridges' do
-        expect(response_body.length).to eq fridges_count
-      end
-
-      it 'returns fridges ordered by distance' do
-        f = Fridge.new(email: 'fake@fake.com', password: 'password', lat: lat, lng: lng)
-        expect(f.distance_to([response_body.first['lat'], response_body.first['lng']]))
-          .to be <= f.distance_to([response_body.last['lat'], response_body.last['lng']])
+      it 'returns fridges within the specified radius' do
+        expect(response_body).not_to include serialize(far_away_fridge.reload, FridgeSerializer,
+                                                       'fridge')
+        expect(response_body).to include serialize(nearby_fridge.reload, FridgeSerializer, 'fridge')
       end
     end
   end

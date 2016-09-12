@@ -4,7 +4,7 @@ module Api
       skip_before_action :current_user, :authenticate_request, only: :create
 
       def index
-        render json: Fridge.by_distance(origin: current_location).page(params[:page])
+        render json: Fridge.within(params[:radius] || DEFAULT_RADIUS, origin: current_location)
       end
 
       def create
