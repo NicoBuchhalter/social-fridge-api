@@ -137,4 +137,30 @@ describe Api::V1::DonationsController do
       end
     end
   end
+
+  describe 'GET #index' do
+    context 'when current user is a volunteer' do
+      include_context 'Authentication Volunteer Context'
+
+      let!(:donations) { create_list(:donation, 5, status: :open) }
+      let!(:other_donation) { create(:donation, status: :active) }
+
+      before(:each) { get :index, status: 'open' }
+
+      it 'returns requested donations' do
+        expect(response_body['donations'].count).to eq 5
+      end
+    end
+
+    context 'when current user is a donator' do
+      include_context 'Authentication Donator Context'
+      let!(:new_user) { create(:user) }
+      let!(:donations) { create_list(:donation, 5, status: :open, donator: current_user) }
+      let!(:other_donatior) { create(:donation, status: :open, donator: new_user) }
+
+      it 'returns requested donations' do
+        expect(response_body['donations'].count).to eq 5
+      end
+    end
+  end
 end

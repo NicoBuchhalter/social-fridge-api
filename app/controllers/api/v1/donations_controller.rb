@@ -2,7 +2,7 @@ module Api
   module V1
     class DonationsController < ApplicationController
       def create
-        return render_errors(['User must be a donator']) unless current_user.donator?
+        return render_errors(['User must be a donator']) unless donator?
         donation = Donation.create(create_params.merge(donator: current_user))
         return render_errors(donation.errors.full_messages) unless donation.valid?
         head :created
@@ -23,7 +23,31 @@ module Api
         render json: donation, status: :ok
       end
 
+      def index
+        return render json: { error: 'Not a valid status' } unless valid_status?
+        render json: donations, status: :ok
+      end
+
       private
+
+      def valid_status?
+        Donation.statuses.include? index_params[:status]
+      end
+
+      def donations
+        donations = Donation.where(status: Donation.statuses[index_params[:status]])
+        return donations.where(donator: current_user).page(params[:page]) if donator?
+        donations.page(params[:page])
+      end
+
+      def donator?
+        current_user.donator?
+      end
+
+      def index_params
+        params.require(:status)
+        params.permit(:status)
+      end
 
       def create_params
         params.permit(:pickup_time_from, :pickup_time_to, :description)

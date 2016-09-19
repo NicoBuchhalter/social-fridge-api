@@ -30,7 +30,7 @@ SocialFridgeApi::Application.routes.draw do
       end
     end
     resources :donators, only: [:index, :create]
-    resources :donations, only: [:create] do
+    resources :donations, only: [:create, :index] do
       member do
         post :activate
         post :finish
