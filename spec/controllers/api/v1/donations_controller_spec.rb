@@ -148,18 +148,20 @@ describe Api::V1::DonationsController do
       before(:each) { get :index, status: 'open' }
 
       it 'returns requested donations' do
-        expect(response_body['donations'].count).to eq 5
+        expect(response_body.count).to eq 5
       end
     end
 
     context 'when current user is a donator' do
       include_context 'Authentication Donator Context'
-      let!(:new_user) { create(:user) }
+      let!(:other_donator) { create(:donator) }
       let!(:donations) { create_list(:donation, 5, status: :open, donator: current_user) }
-      let!(:other_donatior) { create(:donation, status: :open, donator: new_user) }
+      let!(:other_donation) { create(:donation, status: :open, donator: other_donator) }
+
+      before(:each) { get :index, status: 'open' }
 
       it 'returns requested donations' do
-        expect(response_body['donations'].count).to eq 5
+        expect(response_body.count).to eq 5
       end
     end
   end
