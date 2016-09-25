@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_nothing_bad_req
 
+  delegate :volunteer?, to: :current_user
+  delegate :donator?, to: :current_user
+  delegate :fridge?, to: :current_user
+
   def health
     head :ok
   end

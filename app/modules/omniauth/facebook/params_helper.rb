@@ -9,6 +9,7 @@ module Omniauth
             .split.reduce('') { |a, e| "#{a} #{e.capitalize}" },
           email: upsert_fb_params(user, 'email', fb_info),
           fb_id: fb_info['id'],
+          # remote_avatar_url: fb_avatar(fb_info),
           fb_access_token: facebook_token,
           username: fb_username(user, fb_info)
         }
@@ -28,6 +29,12 @@ module Omniauth
 
       def base_username(user, fb_info)
         upsert_fb_params(user, 'email', fb_info).split('@').first
+      end
+
+      def fb_avatar(fb_info)
+        fb_info['picture']
+          .try(:[], 'data').try(:[], 'url') unless fb_info['picture']
+                                                   .try(:[], 'data').try(:[], 'is_silhouette')
       end
 
       def valid_username_suffix(uname)

@@ -9,7 +9,7 @@ module Api
       end
 
       def activate
-        return render_errors(['User must be a volunteer']) unless current_user.volunteer?
+        return render_errors(['User must be a volunteer']) unless volunteer?
         donation = Donation.find(params[:id])
         return render_errors(['Inexistent Fridge']) unless valid_fridge?
         donation.update(activate_params.merge(volunteer: current_user, status: :active))
@@ -17,37 +17,33 @@ module Api
       end
 
       def finish
-        return render_errors(['User must be a fridge']) unless current_user.fridge?
+        return render_errors(['User must be a fridge']) unless fridge?
         donation = Donation.find(params[:id])
         donation.update(fridge: current_user, status: :finished)
         render json: donation, status: :ok
       end
 
-      def index
-        return render json: { error: 'Not a valid status' } unless valid_status?
+      def open
+        donations = Donation.includes(:donator).open
+        donations = donations.where(donator: current_user) if donator?
+        render json: donations, status: :ok
+      end
+
+      def active
+        donations = Donation.includes(:donator).active
+        donations = donations.where(donator: current_user) if donator?
+        donations = donations.where(volunteer: current_user) if volunteer?
+        render json: donations, status: :ok
+      end
+
+      def finished
+        donations = Donation.includes(:donator).where(status: [:finished, :cancelled])
+        donations = donations.where(donator: current_user) if donator?
+        donations = donations.where(volunteer: current_user) if volunteer?
         render json: donations, status: :ok
       end
 
       private
-
-      def valid_status?
-        Donation.statuses.include? index_params[:status]
-      end
-
-      def donations
-        donations = Donation.where(status: Donation.statuses[index_params[:status]])
-        return donations.where(donator: current_user).page(params[:page]) if donator?
-        donations.page(params[:page])
-      end
-
-      def donator?
-        current_user.donator?
-      end
-
-      def index_params
-        params.require(:status)
-        params.permit(:status)
-      end
 
       def create_params
         params.permit(:pickup_time_from, :pickup_time_to, :description)

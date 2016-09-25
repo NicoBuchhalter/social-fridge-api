@@ -5,6 +5,10 @@ class Donator < User
 
   scope :open, -> { where(id: Donation.open.select(:donator_id)) }
 
+  validates :name, presence: true
+
+  # mount_uploader :avatar, AvatarUploader
+
   def donator?
     true
   end

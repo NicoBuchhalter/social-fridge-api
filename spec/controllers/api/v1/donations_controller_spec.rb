@@ -138,14 +138,14 @@ describe Api::V1::DonationsController do
     end
   end
 
-  describe 'GET #index' do
+  describe 'GET #open' do
     context 'when current user is a volunteer' do
       include_context 'Authentication Volunteer Context'
 
       let!(:donations) { create_list(:donation, 5, status: :open) }
       let!(:other_donation) { create(:donation, status: :active) }
 
-      before(:each) { get :index, status: 'open' }
+      before(:each) { get :open }
 
       it 'returns requested donations' do
         expect(response_body.count).to eq 5
@@ -158,7 +158,36 @@ describe Api::V1::DonationsController do
       let!(:donations) { create_list(:donation, 5, status: :open, donator: current_user) }
       let!(:other_donation) { create(:donation, status: :open, donator: other_donator) }
 
-      before(:each) { get :index, status: 'open' }
+      before(:each) { get :open }
+
+      it 'returns requested donations' do
+        expect(response_body.count).to eq 5
+      end
+    end
+  end
+
+  describe 'GET #active' do
+    context 'when current user is a volunteer' do
+      include_context 'Authentication Volunteer Context'
+
+      let!(:other_volunteer) { create(:volunteer) }
+      let!(:donations) { create_list(:donation, 5, status: :active, volunteer: current_user) }
+      let!(:other_donation) { create(:donation, status: :active, volunteer: other_volunteer) }
+
+      before(:each) { get :active }
+
+      it 'returns requested donations' do
+        expect(response_body.count).to eq 5
+      end
+    end
+
+    context 'when current user is a donator' do
+      include_context 'Authentication Donator Context'
+      let!(:other_donator) { create(:donator) }
+      let!(:donations) { create_list(:donation, 5, status: :active, donator: current_user) }
+      let!(:other_donation) { create(:donation, status: :active, donator: other_donator) }
+
+      before(:each) { get :active }
 
       it 'returns requested donations' do
         expect(response_body.count).to eq 5

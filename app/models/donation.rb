@@ -4,6 +4,7 @@ class Donation < ActiveRecord::Base
   belongs_to :donator
   belongs_to :volunteer
   belongs_to :fridge
+  acts_as_mappable through: :donator
 
   validates :donator, presence: true
 

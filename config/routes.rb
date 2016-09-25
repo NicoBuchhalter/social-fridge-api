@@ -29,11 +29,17 @@ SocialFridgeApi::Application.routes.draw do
         post :fb_connect
       end
     end
-    resources :donators, only: [:index, :create]
-    resources :donations, only: [:create, :index] do
+    resources :donators, only: [:index, :create, :update]
+    resources :donations, only: [:create] do
       member do
         post :activate
         post :finish
+      end
+
+      collection do
+        get :active
+        get :open
+        get :finished
       end
     end
     resources :o_auth, only: [] do

@@ -9,16 +9,27 @@ module Api
         render json: { access_token: donator.generate_access_token }, status: :created
       end
 
+      def update
+        current_user.update_attributes(update_params)
+        return head :ok if current_user.save
+        render_errors(current_user.errors)
+      end
+
       def index
-        donators = Donator.open.within(params[:radius] || DEFAULT_RADIUS, origin: current_location)
-        render json: donators, status: :ok
+        render json: Donator.all.page(params[:page]), status: :ok
       end
 
       private
 
       def create_params
-        [:email, :password, :password_confirmation, :address].each { |p| params.require(p) }
-        params.permit(:email, :password, :password_confirmation, :address)
+        [:email, :password, :password_confirmation, :address, :name].each { |p| params.require(p) }
+        params.permit(:email, :password, :password_confirmation, :address, :name)
+        # params.permit(:email, :password, :password_confirmation, :address, :name, :avatar)
+      end
+
+      def update_params
+        params.permit(:address, :name)
+        # params.permit(:address, :name, :avatar)
       end
     end
   end

@@ -39,6 +39,8 @@ gem 'jquery-rails'
 gem 'loadjs'
 
 gem 'carrierwave'
+gem 'fog'
+gem 'mini_magick'
 
 gem 'turbolinks'
 
