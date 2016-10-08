@@ -1,5 +1,5 @@
 class DonatorSerializer < ActiveModel::Serializer
-  attributes :lat, :lng, :address, :email, :avatar, :name
+  attributes :lat, :lng, :address, :email, :avatar, :name, :id
 
   def avatar
     return nil if object.avatar.nil?
