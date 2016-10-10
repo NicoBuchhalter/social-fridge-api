@@ -80,6 +80,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'sidekiq-failures'
 gem 'sidekiq_mailer'
+gem 'sidetiq'
 
 # Authorization Policies
 gem 'pundit'

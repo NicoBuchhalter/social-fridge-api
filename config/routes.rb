@@ -4,6 +4,7 @@ SocialFridgeApi::Application.routes.draw do
   root to: 'application#index'
 
   require 'sidekiq/web'
+  require 'sidetiq/web'
   mount Sidekiq::Web, at: 'sidekiq'
   mount PgHero::Engine, at: 'pghero'
 
@@ -34,6 +35,7 @@ SocialFridgeApi::Application.routes.draw do
       member do
         post :activate
         post :finish
+        post :cancel
       end
 
       collection do

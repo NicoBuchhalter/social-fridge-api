@@ -23,6 +23,14 @@ module Api
         render json: donation, status: :ok
       end
 
+      def cancel
+        return render_errors(['User must be a volunteer']) unless volunteer?
+        donation = Donation.find(params[:id])
+        return render_errors(['User must own the donation']) if donation.volunteer != current_user
+        donation.update(status: :cancelled)
+        head :ok
+      end
+
       def open
         donations = Donation.includes(:donator).open
         donations = donations.where(donator: current_user) if donator?
@@ -46,6 +54,7 @@ module Api
       private
 
       def create_params
+        [:pickup_time_from, :pickup_time_to].each { |p| params.require(p) }
         params.permit(:pickup_time_from, :pickup_time_to, :description)
       end
 
