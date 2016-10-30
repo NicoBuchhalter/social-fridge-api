@@ -66,6 +66,11 @@ GEM
     autoprefixer-rails (6.3.6)
       execjs
     awesome_print (1.6.1)
+    aws-sdk (1.61.0)
+      aws-sdk-v1 (= 1.61.0)
+    aws-sdk-v1 (1.61.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -559,6 +564,7 @@ DEPENDENCIES
   activeadmin!
   autoprefixer-rails
   awesome_print
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-sass

@@ -109,6 +109,8 @@ gem 'httparty'
 # Facebook Auth
 gem 'koala'
 
+gem 'aws-sdk'
+
 group :development do
   # Gem to detect N+1 queries
   gem 'bullet'
