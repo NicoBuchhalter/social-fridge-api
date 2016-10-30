@@ -23,13 +23,11 @@ module Api
 
       def create_params
         [:email, :password, :address, :name].each { |p| params.require(p) }
-        params.permit(:email, :password, :address, :name)
-        # params.permit(:email, :password, :address, :name, :avatar)
+        params.permit(:email, :password, :address, :name, :avatar)
       end
 
       def update_params
-        params.permit(:address, :name)
-        # params.permit(:address, :name, :avatar)
+        params.permit(:address, :name, :avatar)
       end
     end
   end

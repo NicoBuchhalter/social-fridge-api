@@ -7,7 +7,7 @@ class Donator < User
 
   validates :name, presence: true
 
-  # mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader
 
   def donator?
     true

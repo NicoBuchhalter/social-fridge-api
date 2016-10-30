@@ -9,7 +9,7 @@ module Omniauth
             .split.reduce('') { |a, e| "#{a} #{e.capitalize}" },
           email: upsert_fb_params(user, 'email', fb_info),
           fb_id: fb_info['id'],
-          # remote_avatar_url: fb_avatar(fb_info),
+          remote_avatar_url: fb_avatar(fb_info),
           fb_access_token: facebook_token,
           username: fb_username(user, fb_info)
         }
