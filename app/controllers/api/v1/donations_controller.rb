@@ -32,13 +32,13 @@ module Api
       end
 
       def open
-        donations = Donation.includes(:donator).open
+        donations = Donation.includes(:donator).open.order(:pickup_time_to)
         donations = donations.where(donator: current_user) if donator?
         render json: donations, status: :ok
       end
 
       def active
-        donations = Donation.includes(:donator).active
+        donations = Donation.includes(:donator).active.order(:updated_at)
         donations = donations.where(donator: current_user) if donator?
         donations = donations.where(volunteer: current_user) if volunteer?
         render json: donations, status: :ok
@@ -46,6 +46,7 @@ module Api
 
       def finished
         donations = Donation.includes(:donator).where(status: [:finished, :cancelled])
+                            .order(:updated_at)
         donations = donations.where(donator: current_user) if donator?
         donations = donations.where(volunteer: current_user) if volunteer?
         render json: donations, status: :ok
