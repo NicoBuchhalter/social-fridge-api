@@ -8,11 +8,19 @@ module Api
         head :created
       end
 
+      def reopen
+        return render_errors(['User must be a donator']) unless donator?
+        donation = Donation.find_by_id(params[:id])
+        return render_errors(['Inexistent Donation']) unless donation.present? || !donation.active?
+        donation.update(status: :open)
+        head :ok
+      end
+
       def activate
         return render_errors(['User must be a volunteer']) unless volunteer?
         donation = Donation.find(params[:id])
         return render_errors(['Inexistent Fridge']) unless valid_fridge?
-        donation.update(activate_params.merge(volunteer: current_user, status: :active))
+        donation = donation.activate(activate_params, current_user)
         render json: donation, status: :ok
       end
 

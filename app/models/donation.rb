@@ -11,6 +11,17 @@ class Donation < ActiveRecord::Base
 
   after_initialize :default_attributes
 
+  def activation_message
+    "El voluntario #{volunteer.name} está yendo a buscar tu donación."
+  end
+
+  def activate(activation_params, volunteer)
+    update(activation_params.merge(volunteer: volunteer, status: :active))
+    NotificateUser.call(user: donator, n_type: :donation_activated,
+                        i18n_args: activation_message)
+    self
+  end
+
   private
 
   def default_attributes

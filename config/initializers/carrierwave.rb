@@ -9,9 +9,9 @@ CarrierWave.configure do |config|
   else
     config.fog_credentials = {
       provider: 'AWS',
-      aws_access_key_id: Rails.application.secrets.amazons3_key,
-      aws_secret_access_key: Rails.application.secrets.amazons3_secret,
-      region: Rails.application.secrets.amazons3_region,
+      aws_access_key_id: Rails.application.secrets.aws_access_key_id,
+      aws_secret_access_key: Rails.application.secrets.aws_secret_access_key,
+      region: Rails.application.secrets.aws_region,
       path_style: true
     }
     config.storage = :fog

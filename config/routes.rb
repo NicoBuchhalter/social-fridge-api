@@ -36,6 +36,7 @@ SocialFridgeApi::Application.routes.draw do
         post :activate
         post :finish
         post :cancel
+        post :reopen
       end
 
       collection do
@@ -47,6 +48,7 @@ SocialFridgeApi::Application.routes.draw do
     resources :o_auth, only: [] do
       collection do
         post :token
+        post :save_token
       end
     end
   end

@@ -109,7 +109,8 @@ gem 'httparty'
 # Facebook Auth
 gem 'koala'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2'
+
 
 gem 'interactor'
 
@@ -148,6 +149,8 @@ group :development, :test do
 
   gem 'factory_girl_rails'
   gem 'faker'
+
+  gem 'dotenv-rails'
 
   # Lints
   gem 'rubocop'

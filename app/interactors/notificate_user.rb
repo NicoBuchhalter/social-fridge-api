@@ -12,9 +12,11 @@ class NotificateUser < CustomInteractor
   # end
 
   def notify_by_push
-    PushNotifications.simple_notification(
-      context.user, "push_notification.#{context.n_type}", context.i18n_args, {}
-    )
+    PushNotification.new(user: context.user,
+                         loc_key: "push_notification.#{context.n_type}",
+                         loc_args: context.i18n_args,
+                         data: {})
+                    .simple_notification
   end
 
   def store_notification
@@ -23,9 +25,6 @@ class NotificateUser < CustomInteractor
   end
 
   def params
-    { number: context.number,
-      date: context.date,
-      from: context.user_from,
-      name: UserHelper.name(context.user_from) }
+    { number: context.number, date: context.date, from: context.user_from }
   end
 end
