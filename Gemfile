@@ -111,6 +111,8 @@ gem 'koala'
 
 gem 'aws-sdk'
 
+gem 'interactor'
+
 group :development do
   # Gem to detect N+1 queries
   gem 'bullet'
