@@ -23,4 +23,6 @@ es:
   hello: "Hola mundo"
 
   push_notification:
-    donation_activated: 'Una de sus donaciones ha sido activada por un voluntario. Debería pasar a buscarla en la próxima hora'
+    donation_activated: "El voluntario %{volunteer} está yendo a buscar la donación '%{description}'. Debería pasar a buscarla en la próxima hora"
+    donation_expired: "La donación '%{description}' ha expirado."
+    activation_time_passed: "Ya han pasado 60 minutos desde que la donación '%{description}' fue activada."

@@ -32,9 +32,9 @@ module Api
       end
 
       def cancel
-        return render_errors(['User must be a volunteer']) unless volunteer?
+        return render_errors(['User must be a Donator']) unless donator?
         donation = Donation.find(params[:id])
-        return render_errors(['User must own the donation']) if donation.volunteer != current_user
+        return render_errors(['User must own the donation']) if donation.donator != current_user
         donation.update(status: :cancelled)
         head :ok
       end

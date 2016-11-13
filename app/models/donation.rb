@@ -12,13 +12,13 @@ class Donation < ActiveRecord::Base
   after_initialize :default_attributes
 
   def activation_message
-    "El voluntario #{volunteer.name} está yendo a buscar tu donación."
+    I18n.t('push_notification.donation_activated', description: description, volunteer: volunteer.name)
   end
 
   def activate(activation_params, volunteer)
-    update(activation_params.merge(volunteer: volunteer, status: :active))
+    update(activation_params.merge(volunteer: volunteer, status: :active, activated_at: Time.zone.now))
     NotificateUser.call(user: donator, n_type: :donation_activated, user_from: volunteer,
-                        i18n_args: activation_message, date: Time.zone.now)
+                        message: activation_message, date: Time.zone.now)
     self
   end
 

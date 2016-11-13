@@ -6,6 +6,7 @@ module PushJsonBuilder
       GCM: {
         data: {
           user_id: data[:from_id],
+          donation_id: data[:donation_id],
           message_body: message_body
         }
       }.to_json
