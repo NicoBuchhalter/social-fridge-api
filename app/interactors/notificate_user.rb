@@ -14,7 +14,7 @@ class NotificateUser < CustomInteractor
   def notify_by_push
     PushNotification.new(user: context.user,
                          message: context.message,
-                         data: { from_id: context.user_from.id, donation_id: context.donation.id })
+                         data: { from_id: context.user_from.try(:id), donation_id: context.donation.try(:id) })
                     .simple_notification
   end
 

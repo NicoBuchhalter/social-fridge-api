@@ -25,9 +25,11 @@ module Api
       end
 
       def finish
-        return render_errors(['User must be a fridge']) unless fridge?
+        return render_errors(['User must be a fridge']) unless fridge? || donator?
         donation = Donation.find(params[:id])
-        donation.update(fridge: current_user, status: :finished)
+        donation.status = :finished
+        donation.fridge = current_user if fridge?
+        donation.save
         render json: donation, status: :ok
       end
 
