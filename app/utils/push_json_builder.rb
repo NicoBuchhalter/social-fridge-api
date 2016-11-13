@@ -1,13 +1,12 @@
 module PushJsonBuilder
   module_function
 
-  def android(name, message_body, from_id)
+  def android(message_body, data)
     {
       GCM: {
         data: {
-          user_id: from_id,
-          message_body: message_body,
-          name: name
+          user_id: data[:from_id],
+          message_body: message_body
         }
       }.to_json
     }

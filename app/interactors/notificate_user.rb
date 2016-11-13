@@ -13,9 +13,8 @@ class NotificateUser < CustomInteractor
 
   def notify_by_push
     PushNotification.new(user: context.user,
-                         loc_key: "push_notification.#{context.n_type}",
-                         loc_args: context.i18n_args,
-                         data: {})
+                         message: I18n.t("push_notification.#{context.n_type}"),
+                         data: { from_id: context.user_from.id})
                     .simple_notification
   end
 

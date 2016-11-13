@@ -21,3 +21,6 @@
 
 es:
   hello: "Hola mundo"
+
+  push_notification:
+    donation_activated: 'Una de sus donaciones ha sido activada por un voluntario. Debería pasar a buscarla en la próxima hora'

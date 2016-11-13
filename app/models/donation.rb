@@ -17,8 +17,8 @@ class Donation < ActiveRecord::Base
 
   def activate(activation_params, volunteer)
     update(activation_params.merge(volunteer: volunteer, status: :active))
-    NotificateUser.call(user: donator, n_type: :donation_activated,
-                        i18n_args: activation_message)
+    NotificateUser.call(user: donator, n_type: :donation_activated, user_from: volunteer,
+                        i18n_args: activation_message, date: Time.zone.now)
     self
   end
 

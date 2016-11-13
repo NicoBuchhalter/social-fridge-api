@@ -14,7 +14,7 @@ module Api
 
       def save_token
         SaveTokenWorker.perform_async(save_token_params.merge(user_id: current_user.id))
-        render status: result[:status], json: result[:json]
+        head :ok
       end
 
       private

@@ -1,18 +1,17 @@
 class PushNotification
-  attr_reader :user, :loc_key, :loc_args, :data
+  attr_reader :user, :message, :data
 
   def initialize(options = {})
     @user = options[:user]
-    @loc_key = options[:loc_key]
-    @loc_args = options[:loc_args]
+    @message = options[:message]
     @data = options[:data]
   end
 
   def simple_notification
     return unless can_send?
     user.device_tokens.each do |device_token, token|
-      message = prepare_predefined_message(token['device_type'])
-      publish_message(token['endpoint_arn'], device_token, message)
+      prepared_message = prepare_predefined_message(token['device_type'])
+      publish_message(token['endpoint_arn'], device_token, prepared_message)
     end
   end
 
@@ -22,9 +21,10 @@ class PushNotification
     user.device_tokens.present? && !user.device_tokens.values.empty?
   end
 
+  # Only works for Android
   def prepare_predefined_message(device_type)
     { default: 'Push' }.merge(
-      PushJsonBuilder.send(device_type.to_sym, loc_key, loc_args, data)
+      PushJsonBuilder.send(device_type.to_sym, message, data)
     ).to_json
   end
 
@@ -32,10 +32,10 @@ class PushNotification
     @sns_client ||= Aws::SNS::Client.new
   end
 
-  def publish_message(target_arn, device_token, message)
+  def publish_message(target_arn, device_token, prepared_message)
     push_service.publish(
       target_arn: target_arn,
-      message: message,
+      message: prepared_message,
       message_structure: 'json'
     )
   rescue
