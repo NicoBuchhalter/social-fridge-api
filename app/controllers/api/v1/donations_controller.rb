@@ -12,7 +12,7 @@ module Api
         return render_errors(['User must be a donator']) unless donator?
         donation = Donation.find_by_id(params[:id])
         return render_errors(['Inexistent Donation']) unless donation.present? || !donation.active?
-        donation.update(status: :open)
+        donation.update(status: :open, activated_at: nil)
         head :ok
       end
 
