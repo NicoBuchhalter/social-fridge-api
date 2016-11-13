@@ -28,9 +28,14 @@ SocialFridgeApi::Application.routes.draw do
     resources :volunteers do
       collection do
         post :fb_connect
+        get :me
       end
     end
-    resources :donators, only: [:index, :create, :update]
+    resources :donators, only: [:index, :create, :update] do
+      collection do
+        get :me
+      end
+    end
     resources :donations, only: [:create] do
       member do
         post :activate

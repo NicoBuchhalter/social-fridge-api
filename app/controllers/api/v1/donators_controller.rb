@@ -19,6 +19,10 @@ module Api
         render json: Donator.all.page(params[:page]), status: :ok
       end
 
+      def me
+        render json: current_user, status: :ok
+      end
+
       private
 
       def create_params

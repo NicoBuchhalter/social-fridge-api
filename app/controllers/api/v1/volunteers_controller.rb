@@ -11,6 +11,10 @@ module Api
         render status: status, json: context.volunteer
       end
 
+      def me
+        render json: current_user, status: :ok
+      end
+
       private
 
       def fb_params
