@@ -54,6 +54,7 @@ SocialFridgeApi::Application.routes.draw do
       collection do
         post :token
         post :save_token
+        post :delete_token
       end
     end
   end
