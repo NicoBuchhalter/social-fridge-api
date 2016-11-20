@@ -177,6 +177,7 @@ describe Api::V1::DonationsController do
       before(:each) { get :active }
 
       it 'returns requested donations' do
+        binding.pry
         expect(response_body.count).to eq 5
       end
     end
