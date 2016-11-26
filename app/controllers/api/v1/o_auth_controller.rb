@@ -17,10 +17,10 @@ module Api
         head :ok
       end
 
-    def delete_token
-      DeleteTokenWorker.perform_async(delete_token_params.merge(user_id: current_user.id))
-      head :ok
-    end
+      def delete_token
+        DeleteTokenWorker.perform_async(delete_token_params.merge(user_id: current_user.id))
+        head :ok
+      end
 
       private
 

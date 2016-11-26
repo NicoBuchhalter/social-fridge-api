@@ -21,6 +21,7 @@ class DeviceTokenManager
       'device_type' => device_type,
       'endpoint_arn' => service_endpoint[:endpoint_arn]
     }
+    user.device_tokens_will_change!
     user.save
   end
 
@@ -28,6 +29,7 @@ class DeviceTokenManager
     return true unless token_already_present?
     push_service.delete_endpoint(endpoint_arn: user.device_tokens[device_token]['endpoint_arn'])
     user.device_tokens.delete(device_token)
+    user.device_tokens_will_change!
     user.save
   end
 
