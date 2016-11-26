@@ -1,6 +1,6 @@
 class Donation < ActiveRecord::Base
   # Unknown status is when we dont know if the food was delivered or not.
-  enum status: [:open, :active, :finished, :cancelled, :unknown]
+  enum status: [:open, :active, :ongoing, :finished, :cancelled, :unknown]
 
   belongs_to :donator
   belongs_to :volunteer

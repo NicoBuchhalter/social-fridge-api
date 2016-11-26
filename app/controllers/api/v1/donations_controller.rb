@@ -24,8 +24,14 @@ module Api
         render json: donation, status: :ok
       end
 
+      def ongoing
+        return render_errors(['User must be a fridge']) unless donator?
+        Donation.find(params[:id]).update status: :ongoing
+        render json: donation, status: :ok
+      end
+
       def finish
-        return render_errors(['User must be a fridge']) unless fridge? || donator?
+        return render_errors(['User must be a fridge']) unless fridge?
         donation = Donation.find(params[:id])
         donation.status = :finished
         donation.fridge = current_user if fridge?

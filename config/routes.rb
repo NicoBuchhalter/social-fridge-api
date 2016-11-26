@@ -42,6 +42,7 @@ SocialFridgeApi::Application.routes.draw do
         post :finish
         post :cancel
         post :reopen
+        post :ongoing
       end
 
       collection do
