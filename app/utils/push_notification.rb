@@ -1,10 +1,11 @@
 class PushNotification
-  attr_reader :user, :message, :data
+  attr_reader :user, :message, :data, :n_type
 
   def initialize(options = {})
     @user = options[:user]
     @message = options[:message]
     @data = options[:data]
+    @n_type = options[:n_type]
   end
 
   def simple_notification
@@ -24,7 +25,7 @@ class PushNotification
   # Only works for Android
   def prepare_predefined_message(device_type)
     { default: 'Push' }.merge(
-      PushJsonBuilder.send(device_type.to_sym, message, data)
+      PushJsonBuilder.send(device_type.to_sym, message, data, n_type)
     ).to_json
   end
 
