@@ -11,6 +11,8 @@ class Donation < ActiveRecord::Base
 
   after_initialize :default_attributes
 
+  scope :available, -> { open.where('pickup_time_from < :now AND pickup_time_to > :now', now: Time.zone.now) }
+
   def activation_message
     I18n.t('push_notification.donation_activated', description: description, volunteer: volunteer.name)
   end

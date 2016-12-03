@@ -48,7 +48,7 @@ module Api
       end
 
       def open
-        donations = Donation.includes(:donator).open.order(:pickup_time_to)
+        donations = Donation.includes(:donator).available.order(:pickup_time_to)
         donations = donations.where(donator: current_user) if donator?
         render json: donations, status: :ok
       end
