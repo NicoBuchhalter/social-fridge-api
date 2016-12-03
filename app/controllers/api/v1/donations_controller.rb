@@ -24,6 +24,13 @@ module Api
         render json: donation, status: :ok
       end
 
+      def deactivate
+        return render_errors(['User must be a volunteer']) unless volunteer?
+        donation = Donation.find(params[:id])
+        donation = donation.deactivate(current_user)
+        render json: donation, status: :ok
+      end
+
       def ongoing
         return render_errors(['User must be a fridge']) unless donator?
         Donation.find(params[:id]).update status: :ongoing

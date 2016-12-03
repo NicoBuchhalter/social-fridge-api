@@ -39,6 +39,7 @@ SocialFridgeApi::Application.routes.draw do
     resources :donations, only: [:create] do
       member do
         post :activate
+        post :deactivate
         post :finish
         post :cancel
         post :reopen

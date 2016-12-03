@@ -17,11 +17,21 @@ class Donation < ActiveRecord::Base
     I18n.t('push_notification.donation_activated', description: description, volunteer: volunteer.name)
   end
 
+  def deactivation_message
+     I18n.t('push_notification.donation_deactivated', description: description, volunteer: volunteer.name)
+  end
+
   def activate(activation_params, volunteer)
     update(activation_params.merge(volunteer: volunteer, status: :active, activated_at: Time.zone.now))
     NotificateUser.call(user: donator, n_type: :donation_activated, user_from: volunteer,
                         message: activation_message, date: Time.zone.now)
     self
+  end
+
+  def deactivate(volunteer)
+    update(volunteer: nil, status: :open, activated_at: nil)
+    NotificateUser.call(user: donator, n_type: :donation_deactivated, user_from: volunteer,
+                        message: deactivation_message, date: Time.zone.now)
   end
 
   private
