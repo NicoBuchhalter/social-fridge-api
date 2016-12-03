@@ -10,7 +10,7 @@ module Api
       end
 
       def update
-        current_user.update_attributes(update_params)
+        current_user.assign_attributes(update_params)
         return head :ok if current_user.save
         render_errors(current_user.errors)
       end
