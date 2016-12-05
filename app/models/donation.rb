@@ -29,9 +29,9 @@ class Donation < ActiveRecord::Base
   end
 
   def deactivate(volunteer)
-    update(volunteer: nil, status: :open, activated_at: nil)
     NotificateUser.call(user: donator, n_type: :donation_deactivated, user_from: volunteer,
                         message: deactivation_message, date: Time.zone.now)
+    update(volunteer: nil, status: :open, activated_at: nil)
   end
 
   private
