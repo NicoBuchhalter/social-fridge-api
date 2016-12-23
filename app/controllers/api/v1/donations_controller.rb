@@ -33,7 +33,8 @@ module Api
 
       def ongoing
         return render_errors(['User must be a fridge']) unless donator?
-        Donation.find(params[:id]).update status: :ongoing
+        donation = Donation.find(params[:id])
+        donation.update status: :ongoing
         render json: donation, status: :ok
       end
 
