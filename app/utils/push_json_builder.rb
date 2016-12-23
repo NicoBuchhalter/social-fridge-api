@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/MethodLength
 module PushJsonBuilder
   module_function
 
@@ -7,6 +8,7 @@ module PushJsonBuilder
         data: {
           n_type: n_type.to_s,
           user_id: data[:from_id],
+          user_name: data[:from_name],
           donation_id: data[:donation_id],
           message_body: message_body
         }
