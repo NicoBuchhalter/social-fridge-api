@@ -5,7 +5,7 @@ class FridgeUpdater
 
   base_uri Rails.application.secrets.fridges_api_url
 
-  DEFAULT_PASSWORD = 'fridge-password'
+  DEFAULT_PASSWORD = 'fridge-password'.freeze
 
   recurrence { hourly }
 
