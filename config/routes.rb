@@ -25,6 +25,7 @@ SocialFridgeApi::Application.routes.draw do
   api_version(module:  'api/v1', path: { value: 'api/v1' }, defaults: { format: :json }) do
 
     resources :fridges, only: [:index, :create]
+    resources :product_types, only: [:index]
     resources :volunteers do
       collection do
         post :fb_connect
