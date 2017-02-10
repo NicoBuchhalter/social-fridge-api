@@ -10,7 +10,7 @@ class FridgeUpdater
   recurrence { hourly }
 
   def perform
-    response = self.class.get('/storage_units/list')
+    response = self.class.get('/storage_units')
     response.parsed_response.each do |attributes|
       fridge = Fridge.find_or_initialize_by(attributes.slice('email'))
       fridge.new_record? ? create_fridge(fridge, attributes) : update_fridge(fridge, attributes)

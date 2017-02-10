@@ -10,7 +10,7 @@ class ProductTypeUpdater
   def perform
     response = self.class.get('/product_types')
     response.parsed_response.each do |attributes|
-      product_type = ProductType.find_or_initialize_by(external_id: attributes.slice('id'))
+      product_type = ProductType.find_or_initialize_by(external_id: attributes['id'])
       if product_type.new_record?
         create_product_type(product_type, attributes)
       else
@@ -23,7 +23,7 @@ class ProductTypeUpdater
 
   def create_product_type(new_product_type, attributes)
     new_product_type.update(
-      attributes.slice('name', 'measurement_unit').merge(external_id: attributes.slice('id'))
+      attributes.slice('name', 'measurement_unit').merge(external_id: attributes['id'])
     )
   end
 
