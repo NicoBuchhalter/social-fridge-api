@@ -8,13 +8,11 @@ module Api
         context.handle(fb_params[:access_token])
         status = context.status
         return head status unless [:created, :ok].include? status
-        render status: status,
-               json: context.volunteer.merge(access_token: context.volunteer.generate_access_token)
+        render status: status, json: serialized_volunteer(context.volunteer)
       end
 
       def me
-        render json: current_user.merge(access_token: current_user.generate_access_token),
-               status: :ok
+        render json: serialized_volunteer(current_user), status: :ok
       end
 
       private
@@ -22,6 +20,11 @@ module Api
       def fb_params
         params.require(:access_token)
         params.permit(:access_token)
+      end
+
+      def serialized_volunteer(volunteer)
+        VolunteerSerializer.new(volunteer).as_json
+                           .merge(access_token: volunteer.generate_access_token)
       end
     end
   end
