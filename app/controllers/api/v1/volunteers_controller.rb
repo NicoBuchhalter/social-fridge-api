@@ -8,11 +8,13 @@ module Api
         context.handle(fb_params[:access_token])
         status = context.status
         return head status unless [:created, :ok].include? status
-        render status: status, json: context.volunteer
+        render status: status,
+               json: context.volunteer.merge(access_token: context.volunteer.generate_access_token)
       end
 
       def me
-        render json: current_user, status: :ok
+        render json: current_user.merge(access_token: current_user.generate_access_token),
+               status: :ok
       end
 
       private
