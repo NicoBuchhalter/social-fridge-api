@@ -80,7 +80,8 @@ module Api
 
       def create_params
         [:pickup_time_from, :pickup_time_to].each { |p| params.require(p) }
-        params.permit(:pickup_time_from, :pickup_time_to, :description)
+        params[:address] = current_user.address if params[:address].nil?
+        params.permit(:pickup_time_from, :pickup_time_to, :description, :address)
       end
 
       def activate_params

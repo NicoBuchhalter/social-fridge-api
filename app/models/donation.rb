@@ -1,4 +1,5 @@
 class Donation < ActiveRecord::Base
+  include Locatable
   # Unknown status is when we dont know if the food was delivered or not.
   enum status: [:open, :active, :ongoing, :finished, :cancelled, :unknown]
 
