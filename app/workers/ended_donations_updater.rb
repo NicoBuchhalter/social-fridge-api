@@ -23,7 +23,7 @@ class EndedDonationsUpdater
 
   def update_active
     donations = Donation.where(status: Donation.statuses[:active])
-                        .where('activated_at < ?', Time.zone.now - 1.hour)
+                        .where('activated_at < ?', Time.zone.now - 2.minutes)
     donations.each do |donation|
       NotificateUser.call(user: donation.donator, n_type: :activation_time_passed, donation: donation,
                           message: activation_time_passed_massage(donation), date: Time.zone.now,
