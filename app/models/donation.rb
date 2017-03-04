@@ -6,9 +6,12 @@ class Donation < ActiveRecord::Base
   belongs_to :donator
   belongs_to :volunteer
   belongs_to :fridge
+  has_many :products
   acts_as_mappable through: :donator
 
   validates :donator, :pickup_time_from, :pickup_time_to, presence: true
+
+  accepts_nested_attributes_for :products
 
   after_initialize :default_attributes
 

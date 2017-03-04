@@ -20,10 +20,14 @@ class FridgeUpdater
   private
 
   def create_fridge(new_fridge, attributes)
-    new_fridge.update(attributes.slice('name', 'address').merge(password: DEFAULT_PASSWORD))
+    new_fridge.update(fridge_attributes(attributes).merge(password: DEFAULT_PASSWORD))
   end
 
   def update_fridge(existing_fridge, attributes)
-    existing_fridge.update(attributes.slice('name', 'address'))
+    existing_fridge.update(fridge_attributes(attributes))
+  end
+
+  def fridge_attributes(attributes)
+    attributes.slice('name', 'address').merge(fridge_api_id: attributes['id'])
   end
 end

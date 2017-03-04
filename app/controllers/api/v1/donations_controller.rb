@@ -35,6 +35,7 @@ module Api
         return render_errors(['User must be a fridge']) unless donator?
         donation = Donation.find(params[:id], donator: current_user)
         donation.update status: :ongoing, donator: Donator.anonymous_donator
+        FridgesNotificator.perform_async(donation.id) if donation.fridge.present?
         render json: donation, status: :ok
       end
 
@@ -81,7 +82,8 @@ module Api
       def create_params
         [:pickup_time_from, :pickup_time_to].each { |p| params.require(p) }
         params[:address] = current_user.address if params[:address].nil?
-        params.permit(:pickup_time_from, :pickup_time_to, :description, :address)
+        params.permit(:pickup_time_from, :pickup_time_to, :description, :address,
+                      products_attrbiutes: [:id, :product_type_id, :expiration_date, :quantity])
       end
 
       def activate_params

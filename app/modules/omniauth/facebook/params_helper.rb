@@ -6,7 +6,7 @@ module Omniauth
       def user_fb_params(facebook_token, user, fb_info, _new_user)
         {
           name: upsert_fb_params(user, 'name', fb_info)
-            .split.reduce('') { |a, e| "#{a} #{e.capitalize}" },
+            .split.reduce('') { |a, e| "#{a} #{e.capitalize}" }.strip,
           email: upsert_fb_params(user, 'email', fb_info),
           fb_id: fb_info['id'],
           remote_avatar_url: fb_avatar(fb_info),
