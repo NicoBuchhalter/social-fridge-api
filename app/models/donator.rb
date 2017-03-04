@@ -12,4 +12,8 @@ class Donator < User
   def donator?
     true
   end
+
+  def self.anonymous_donator
+    find_by_email('anon@anon.com')
+  end
 end
