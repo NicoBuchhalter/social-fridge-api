@@ -13,6 +13,12 @@ class Donator < User
     true
   end
 
+  def qualify(donation, qualification)
+    donation.update(donator_qualification: qualification)
+    update(qualifications_count: qualifications_count + 1,
+           qualifications_total: qualifications_total + qualification)
+  end
+
   def self.anonymous_donator
     find_by_email('anon@anon.com')
   end

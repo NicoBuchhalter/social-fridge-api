@@ -77,6 +77,15 @@ module Api
         render json: donations, status: :ok
       end
 
+      def qualify
+        donation = Donation.find_by_id(params[:id])
+        return render_errors(['Invalid Donation']) if donation.nil? || donation.active? || donation.open?
+        return render_errors(['Donation doesnt belong to user']) unless current_user.donations.include?(donation)
+        return render_errors(['Invalid qualification']) unless (1..5).cover?(params[:qualification])
+        current_user.qualify(donation, params[:qualification])
+        head :ok
+      end
+
       private
 
       def create_params

@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def qualify(_donation, _qualification)
+    raise NoMethodError
+  end
+
   private
 
   def password_required?
