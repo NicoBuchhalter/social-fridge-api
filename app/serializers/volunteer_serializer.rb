@@ -7,7 +7,7 @@ class VolunteerSerializer < ActiveModel::Serializer
   end
 
   def average_qualification
-    return 0 if qualifications_count.zero?
-    (object.qualifications_total.to_f / qualifications_count.to_f).round(2)
+    return 0 if object.qualifications_count.zero?
+    (object.qualifications_total.to_f / object.qualifications_count.to_f).round(2)
   end
 end
