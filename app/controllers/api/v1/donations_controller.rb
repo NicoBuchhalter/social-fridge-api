@@ -34,8 +34,8 @@ module Api
       def ongoing
         return render_errors(['User must be a fridge']) unless donator?
         donation = Donation.find(params[:id])
-        donation.update status: :ongoing, donator: Donator.anonymous_donator
         FridgesNotificator.perform_async(donation.id) if donation.fridge.present?
+        donation.update status: :ongoing
         render json: donation, status: :ok
       end
 
@@ -83,6 +83,7 @@ module Api
         return render_errors(['Donation doesnt belong to user']) unless current_user.donations.include?(donation)
         return render_errors(['Invalid qualification']) unless (1..5).cover?(params[:qualification])
         current_user.qualify(donation, params[:qualification])
+        donation.update donator: Donator.anonymous_donator if donation.fully_qualified?
         head :ok
       end
 

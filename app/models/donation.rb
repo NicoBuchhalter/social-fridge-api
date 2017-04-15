@@ -17,6 +17,8 @@ class Donation < ActiveRecord::Base
 
   scope :available, -> { open.where('pickup_time_from < :now AND pickup_time_to > :now', now: Time.zone.now) }
 
+  before_save :update_pick_up_time, if: proc { status_changed? && ongoing? }
+
   def activation_message
     I18n.t('push_notification.donation_activated', description: description, volunteer: volunteer.name)
   end
@@ -38,9 +40,17 @@ class Donation < ActiveRecord::Base
     update(volunteer: nil, status: :open, activated_at: nil)
   end
 
+  def fully_qualified?
+    volunteer_qualification.present? && donator_qualification.present?
+  end
+
   private
 
   def default_attributes
     self.status ||= :open
+  end
+
+  def update_pick_up_time
+    self.picked_up_at = Time.zone.now
   end
 end
