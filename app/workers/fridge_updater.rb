@@ -24,7 +24,7 @@ class FridgeUpdater
   end
 
   def update_fridge(existing_fridge, attributes)
-    existing_fridge.reload.update(fridge_attributes(attributes))
+    existing_fridge.update(fridge_attributes(attributes))
   end
 
   def fridge_attributes(attributes)

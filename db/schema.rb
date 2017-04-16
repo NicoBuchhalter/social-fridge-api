@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415194652) do
+ActiveRecord::Schema.define(version: 20170416172013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,7 +131,6 @@ ActiveRecord::Schema.define(version: 20170415194652) do
     t.integer  "fridge_api_id"
     t.integer  "qualifications_count",   default: 0
     t.integer  "qualifications_total",   default: 0
-    t.integer  "lock_version"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
