@@ -16,7 +16,7 @@ class Donator < User
   def qualify(donation, qualification)
     donation.update(donator_qualification: qualification)
     return unless donation.volunteer.present?
-    dontion.volunteer.update(qualifications_count: qualifications_count + 1,
+    donation.volunteer.update(qualifications_count: qualifications_count + 1,
                              qualifications_total: qualifications_total + qualification)
   end
 
