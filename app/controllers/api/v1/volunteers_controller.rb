@@ -12,7 +12,7 @@ module Api
       end
 
       def me
-        render json: serialized_volunteer(current_user), status: :ok
+        render json: current_user, status: :ok
       end
 
       private
