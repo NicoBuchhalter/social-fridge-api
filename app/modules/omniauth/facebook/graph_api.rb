@@ -1,7 +1,7 @@
 module Omniauth
   module Facebook
     class GraphAPI
-      REQUIRED_FB_PARAMS = %w(id name email).freeze
+      REQUIRED_FB_PARAMS = %w(id name email picture).freeze
 
       def self.fb_user_info(fb_token)
         fb_connector = Koala::Facebook::API.new(fb_token,
