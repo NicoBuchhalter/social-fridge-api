@@ -27,3 +27,4 @@ es:
     donation_expired: "La donación '%{description}' ha expirado."
     activation_time_passed: "Ya han pasado 60 minutos desde que la donación '%{description}' fue activada."
     donation_deactivated: "El voluntario %{volunteer} ha avisado que no podrá pasar a buscar la donación '%{description}'."
+    donation_nearby: "¡Se ha creado una donación cerca tuyo!"

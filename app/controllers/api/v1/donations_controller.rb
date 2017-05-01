@@ -5,6 +5,7 @@ module Api
         return render_errors(['User must be a donator']) unless donator?
         donation = Donation.create(create_params.merge(donator: current_user))
         return render_errors(donation.errors.full_messages) unless donation.valid?
+        VolunteerNotificator.perform_async(donation.id)
         head :created
       end
 

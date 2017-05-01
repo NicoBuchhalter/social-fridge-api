@@ -6,7 +6,7 @@ module Locatable
 
     before_validation :locate
 
-    validates :lat, :lng, :address, presence: true
+    validates :lat, :lng, :address, presence: true, unless: :volunteer?
   end
 
   private

@@ -1,9 +1,14 @@
 class DeviceTokenManager
   ALLOWED_DEVICES = %w(ios android).freeze
 
-  APP_ARN = {
-    ios: Rails.application.secrets.sns_app_arn['ios']['arn'],
-    android: Rails.application.secrets.sns_app_arn['android']
+  DONATOR_APP_ARN = {
+    ios: Rails.application.secrets.donator_sns_app_arn['ios']['arn'],
+    android: Rails.application.secrets.donator_sns_app_arn['android']
+  }.freeze
+
+  VOLUNTEER_APP_ARN = {
+    ios: Rails.application.secrets.volunteer_sns_app_arn['ios']['arn'],
+    android: Rails.application.secrets.volunteer_sns_app_arn['android']
   }.freeze
 
   attr_reader :user, :device_token, :device_type
@@ -48,8 +53,9 @@ class DeviceTokenManager
   end
 
   def service_endpoint
+    app_arn = @user.volunteer? ? VOLUNTEER_APP_ARN : DONATOR_APP_ARN
     push_service.create_platform_endpoint(
-      platform_application_arn: APP_ARN[device_type.to_sym],
+      platform_application_arn: app_arn[device_type.to_sym],
       token: device_token
     )
   end

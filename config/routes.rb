@@ -29,6 +29,7 @@ SocialFridgeApi::Application.routes.draw do
     resources :volunteers do
       collection do
         post :fb_connect
+        put :location
         get :me
       end
     end

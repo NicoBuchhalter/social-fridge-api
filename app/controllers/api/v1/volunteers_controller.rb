@@ -15,7 +15,17 @@ module Api
         render json: current_user, status: :ok
       end
 
+      def location
+        current_user.update(location_params)
+      end
+
       private
+
+      def location_params
+        params.require(:lat)
+        params.require(:lng)
+        params.permit(:lat, :lng)
+      end
 
       def fb_params
         params.require(:access_token)

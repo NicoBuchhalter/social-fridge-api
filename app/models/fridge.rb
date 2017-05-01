@@ -1,5 +1,4 @@
 class Fridge < User
-  include Locatable
 
   has_many :donations
 
