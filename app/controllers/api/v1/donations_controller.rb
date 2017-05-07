@@ -94,7 +94,7 @@ module Api
         [:pickup_time_from, :pickup_time_to].each { |p| params.require(p) }
         params[:address] = current_user.address if params[:address].nil?
         params.permit(:pickup_time_from, :pickup_time_to, :description, :address,
-                      products_attrbiutes: [:id, :product_type_id, :expiration_date, :quantity])
+                      products_attributes: [:id, :product_type_id, :expiration_date, :quantity])
       end
 
       def activate_params
