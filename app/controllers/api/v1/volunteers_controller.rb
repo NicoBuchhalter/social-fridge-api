@@ -17,6 +17,7 @@ module Api
 
       def location
         current_user.update(location_params)
+        head :ok
       end
 
       private
