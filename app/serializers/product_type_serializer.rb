@@ -1,3 +1,3 @@
 class ProductTypeSerializer < ActiveModel::Serializer
-  attributes :name, :measurement_unit
+  attributes :name, :measurement_unit, :id
 end
