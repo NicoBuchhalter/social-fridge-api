@@ -25,6 +25,16 @@ module Api
         render json: donation, status: :ok
       end
 
+      def assign_fridge
+        return render_errors(['User must be a volunteer']) unless volunteer?
+        donation = Donation.find(params[:id])
+        return render_errors(['User must own the donation']) unless donation.volunteer == current_user
+        fridge = Fridge.find_by_id(params[:fridge_id])
+        return render_errors(['Inexistent Fridge']) unless fridge.present?
+        donation = donation.update(fridge: fridge)
+        render json: donation, status: :ok
+      end
+
       def deactivate
         return render_errors(['User must be a volunteer']) unless volunteer?
         donation = Donation.find(params[:id])

@@ -47,6 +47,7 @@ SocialFridgeApi::Application.routes.draw do
         post :reopen
         post :ongoing
         post :qualify
+        post :assign_fridge
       end
 
       collection do
