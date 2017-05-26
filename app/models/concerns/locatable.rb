@@ -6,7 +6,7 @@ module Locatable
 
     before_validation :locate
 
-    validates :lat, :lng, :address, presence: true, unless: :volunteer?
+    validates :lat, :lng, :address, presence: true, unless: :user_and_volunteer?
   end
 
   private
@@ -29,5 +29,9 @@ module Locatable
     end
     self.lat = geo.lat
     self.lng = geo.lng
+  end
+
+  def user_and_volunteer?
+    is_a?(User) && volunteer?
   end
 end
