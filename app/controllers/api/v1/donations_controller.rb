@@ -43,9 +43,10 @@ module Api
       end
 
       def ongoing
-        return render_errors(['User must be a fridge']) unless donator?
+        return render_errors(['User must be a donator']) unless donator?
         donation = Donation.find(params[:id])
         FridgesNotificator.perform_async(donation.id) if donation.fridge.present?
+        VolunteerQualificationRequest.perform_in(2.hours, donation.id)
         donation.update status: :ongoing
         render json: donation, status: :ok
       end
