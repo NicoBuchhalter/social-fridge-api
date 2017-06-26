@@ -4,4 +4,5 @@ class DonationSerializer < ActiveModel::Serializer
 
   has_one :donator
   has_one :volunteer
+  has_one :fridge
 end
