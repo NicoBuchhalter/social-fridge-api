@@ -1,5 +1,6 @@
 class FridgesNotificator
   include HTTParty
+  include Sidekiq::Worker
 
   base_uri Rails.application.secrets.fridges_api_url
 
