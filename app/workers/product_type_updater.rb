@@ -8,17 +8,15 @@ class ProductTypeUpdater
   recurrence { hourly }
 
   def perform
-    =begin
-    response = self.class.get('/product_types')
-    response.parsed_response.each do |attributes|
-      product_type = ProductType.find_or_initialize_by(external_id: attributes['id'])
-      if product_type.new_record?
-        create_product_type(product_type, attributes)
-      else
-        update_product_type(product_type, attributes)
-      end
-    end
-    =end
+    # response = self.class.get('/product_types')
+    # response.parsed_response.each do |attributes|
+    #  product_type = ProductType.find_or_initialize_by(external_id: attributes['id'])
+    #  if product_type.new_record?
+    #    create_product_type(product_type, attributes)
+    #  else
+    #    update_product_type(product_type, attributes)
+    #  end
+    # end
   end
 
   private
