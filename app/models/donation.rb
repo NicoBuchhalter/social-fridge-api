@@ -46,11 +46,11 @@ class Donation < ActiveRecord::Base
   end
 
   def cancel
-    if volunteer.present?
-      NotificateUser.call(user: volunteer, n_type: :donation_cancelled, user_from: donator,
-                          message: cancel_message, date: Time.zone.now)
-    end
-    donation.update(status: :cancelled)
+    # if volunteer.present?
+    #   NotificateUser.call(user: volunteer, n_type: :donation_cancelled, user_from: donator,
+    #                       message: cancel_message, date: Time.zone.now)
+    # end
+    update(status: :cancelled)
   end
 
   def fully_qualified?
