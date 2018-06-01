@@ -29,3 +29,4 @@ es:
     donation_deactivated: "El voluntario %{volunteer} ha avisado que no podrá pasar a buscar la donación '%{description}'."
     donation_nearby: "¡Se ha creado una donación cerca tuyo!"
     qualification_request: "¿Te gustaria calificar al donante?"
+    donation_cancelled: "El donante %{donator} ha cancelado la donación '%{description}', por lo que no podrá pasar a buscarla"

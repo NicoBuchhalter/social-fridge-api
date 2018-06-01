@@ -28,6 +28,10 @@ class Donation < ActiveRecord::Base
      I18n.t('push_notification.donation_deactivated', description: description, volunteer: volunteer.name)
   end
 
+  def cancel_message
+    I18n.t('push_notification.donation_cancelled', description: description, donator: donator)
+  end
+
   def activate(activation_params, volunteer)
     update(activation_params.merge(volunteer: volunteer, status: :active, activated_at: Time.zone.now))
     NotificateUser.call(user: donator, n_type: :donation_activated, user_from: volunteer,
@@ -39,6 +43,14 @@ class Donation < ActiveRecord::Base
     NotificateUser.call(user: donator, n_type: :donation_deactivated, user_from: volunteer,
                         message: deactivation_message, date: Time.zone.now)
     update(volunteer: nil, status: :open, activated_at: nil)
+  end
+
+  def cancel
+    if volunteer.present?
+      NotificateUser.call(user: volunteer, n_type: :donation_cancelled, user_from: donator,
+                          message: cancel_message, date: Time.zone.now)
+    end
+    donation.update(status: :cancelled)
   end
 
   def fully_qualified?
