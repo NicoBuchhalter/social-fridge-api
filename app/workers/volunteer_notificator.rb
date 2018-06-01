@@ -1,7 +1,7 @@
 class VolunteerNotificator
   include Sidekiq::Worker
 
-  VOLUNTEER_RADIUS = 1.5
+  VOLUNTEER_RADIUS = 12
 
   def perform(donation_id)
     donation = Donation.find_by_id(donation_id)
